@@ -25,17 +25,17 @@ public class RandomData {
         return chuoi;
     }
 
-    private static int getDay(Date date) {
+    private static int getDaySQL(Date date) {
         String dayString = date.toString().substring(8, 10);
         return Integer.parseInt(dayString);
     }
 
-    private static int getMonth(Date date) {
+    private static int getMonthSQL(Date date) {
         String dayString = date.toString().substring(5, 7);
         return Integer.parseInt(dayString);
     }
 
-    private static int getYear(Date date) {
+    private static int getYearSQL(Date date) {
         String dayString = date.toString().substring(0, 4);
         return Integer.parseInt(dayString);
     }
@@ -58,15 +58,15 @@ public class RandomData {
      *
      * @return sql.Date
      */
-    public static Date rDate() {
+    public static Date rDateSQL() {
         String ngay = "";
 
         // lấy ngày hiện tại trong hệ thống
         Date date = new Date(System.currentTimeMillis());
 
-        int yearNow = getYear(date);
-        int monthNow = getMonth(date);
-        int dayNow = getDay(date);
+        int yearNow = getYearSQL(date);
+        int monthNow = getMonthSQL(date);
+        int dayNow = getDaySQL(date);
 
         Random rd = new Random();
         // năm sẽ được lấy từ năm 2005 đến năm hiện tại
@@ -149,7 +149,7 @@ public class RandomData {
         ngay = year + "-" + month + "-" + day;
         return Date.valueOf(ngay);
     }
-
+    
     /**
      * trả về 1 cái chuỗi chuẩn có kích thước là người dùng nhập vào chuỗi trả
      * về sẽ có độ dài là n + 1 n : số ký tự
