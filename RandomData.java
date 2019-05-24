@@ -207,13 +207,35 @@ public class RandomData {
      * 
      * @return -1 divisor >= 100000
     */
-    public static Integer rPercent(int divisor) {
+    public static Integer rIPercent(int divisor) {
         if (divisor >= 100000) {
             return -1;
         }
         Random rd = new Random();
         int temp = rd.nextInt(100001);
         while (temp % divisor != 0) {
+            temp = rd.nextInt(100001);
+        }
+        return temp;
+    }
+    
+    /**
+     * trả về 1 con số không chia hết cho số đã cho
+     * 
+     * @param divisor : số muốn chia
+     * 
+     * số trả về nằm trong đoạn từ 0 -> 100000
+     * trong đoạn này số nào không chia hết cho divisor sẽ được trả về
+     * 
+     * @return -1 divisor >= 100000
+    */
+    public static Integer rNonIPercent(int divisor) {
+        if (divisor >= 100000) {
+            return -1;
+        }
+        Random rd = new Random();
+        int temp = rd.nextInt(100001);
+        while (temp % divisor == 0) {
             temp = rd.nextInt(100001);
         }
         return temp;
@@ -246,4 +268,30 @@ public class RandomData {
         return id;
     }
 
+    /**
+     * random ra 1 số Float
+     * 
+     * @return Float
+    */
+    public static Float rNumberFloat() {
+        return new Random().nextFloat();
+    }
+    
+    /**
+     * random ra 1 số Double
+     * 
+     * @return Double
+    */
+    public static Double rNumberDouble() {
+        return new Random().nextDouble();
+    }
+    
+    /**
+     * random ra 1 Boolean
+     * 
+     * @return Boolean
+    */
+    public static Boolean rIsBoolean() {
+        return new Random().nextBoolean();
+    }
 }
