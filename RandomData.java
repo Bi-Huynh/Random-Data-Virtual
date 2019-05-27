@@ -13,7 +13,6 @@ import java.util.logging.Logger;
  */
 public class RandomData {
 
-    
     // <editor-fold defaultstate="collapsed" desc="Random Ngày">
     private static int getDaySQL(Date date) {
         String dayString = date.toString().substring(8, 10);
