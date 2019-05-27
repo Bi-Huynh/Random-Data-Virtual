@@ -13,22 +13,8 @@ import java.util.logging.Logger;
  */
 public class RandomData {
 
-    /**
-     * trả về 1 chuỗi hoa bất kỳ chuỗi trả về sẽ có độ dài là n + 1
-     *
-     * @param n là độ dài của chuỗi sẽ trả về
-     *
-     * @return chuỗi
-     */
-    public static String rChuoi(int n) {
-        String chuoi = "";
-        Random rd = new Random();
-        for (int i = 0; i < n; i++) {
-            chuoi += (char) (rd.nextInt(26) + 65);
-        }
-        return chuoi;
-    }
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Random Ngày">
     private static int getDaySQL(Date date) {
         String dayString = date.toString().substring(8, 10);
         return Integer.parseInt(dayString);
@@ -153,7 +139,30 @@ public class RandomData {
         ngay = year + "-" + month + "-" + day;
         return Date.valueOf(ngay);
     }
+    
+    /**
+     * trả về Date bất kỳ và ngày này nhỏ hơn hoặc bằng ngày hiện tại ngày nhỏ
+     * nhất là ngày 2005-1-1
+     * 
+     * random 1 ngày theo kiểu java.util.Date
+     * 
+     * @return java.util.Date
+    */
+    public static java.util.Date rDateUtil() {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 
+        java.util.Date date = null;
+        try {
+            date = format.parse(rDateSQL().toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(RandomData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return date;
+    }
+    // </editor-fold>
+
+    
+    // <editor-fold defaultstate="collapsed" desc="Random Chuỗi">
     /**
      * trả về 1 cái chuỗi chuẩn có kích thước là người dùng nhập vào chuỗi trả
      * về sẽ có độ dài là n + 1 n : số ký tự
@@ -176,7 +185,67 @@ public class RandomData {
         }
         return chuoi;
     }
+    
+    /**
+     * trả về 1 chuỗi hoa bất kỳ chuỗi trả về sẽ có độ dài là n + 1
+     *
+     * @param n là độ dài của chuỗi sẽ trả về
+     *
+     * @return chuỗi
+     */
+    public static String rChuoi(int n) {
+        String chuoi = "";
+        Random rd = new Random();
+        for (int i = 0; i < n; i++) {
+            chuoi += (char) (rd.nextInt(26) + 65);
+        }
+        return chuoi;
+    }
 
+    /**
+     * trả về 1 chuỗi họ tên ảo có dạng chuẩn chuỗi
+     *
+     * @return String name
+     */
+    public static String rName() {
+        String name = rChuoiChuan(5) + ' ' + rChuoiChuan(5) + ' ' + rChuoiChuan(3);
+        return name.trim();
+    }
+    
+    /**
+     * trả về 1 chuỗi dành cho trường ID
+     *
+     * @param _id là biến chuỗi mặc định
+     *
+     * vd : _id = DH => id = DH + 99990 => DH99990
+     *
+     * chuỗi số phía sau từ 1000 -> 100000 tức là có 99990 số
+     *
+     * @return id
+     */
+    public static String rID(String _id) {
+        String id = _id + (rIntegerTo(0, 100000) + 1000);
+        return id;
+    }
+    
+    /**
+     * hàm trả về 1 văn bản có n chữ
+     *
+     * @param n số chữ có trong text
+     *
+     * @return Text
+     */
+    public static String rText(int n) {
+        String text = "";
+        for (int i = 0; i < n; i++) {
+            text += rChuoiChuan(5) + ' ';
+        }
+        return text.trim();
+    }
+    // </editor-fold>
+
+    
+    // <editor-fold defaultstate="collapsed" desc="Random Số">
     /**
      * trả về 1 con số trong khoảng từ 0 -> Integer.MAX_VALUE
      *
@@ -244,33 +313,7 @@ public class RandomData {
         }
         return temp;
     }
-
-    /**
-     * trả về 1 chuỗi họ tên ảo có dạng chuẩn chuỗi
-     *
-     * @return String name
-     */
-    public static String rName() {
-        String name = rChuoiChuan(5) + ' ' + rChuoiChuan(5) + ' ' + rChuoiChuan(3);
-        return name.trim();
-    }
-
-    /**
-     * trả về 1 chuỗi dành cho trường ID
-     *
-     * @param _id là biến chuỗi mặc định
-     *
-     * vd : _id = DH => id = DH + 99990 => DH99990
-     *
-     * chuỗi số phía sau từ 1000 -> 100000 tức là có 99990 số
-     *
-     * @return id
-     */
-    public static String rID(String _id) {
-        String id = _id + (rIntegerTo(0, 100000) + 1000);
-        return id;
-    }
-
+    
     /**
      * random ra 1 số Float
      *
@@ -288,7 +331,10 @@ public class RandomData {
     public static Double rNumberDouble() {
         return new Random().nextDouble();
     }
+    // </editor-fold>
 
+    
+    // <editor-fold defaultstate="collapsed" desc="Random Boolean">
     /**
      * random ra 1 Boolean
      *
@@ -297,39 +343,6 @@ public class RandomData {
     public static Boolean rIsBoolean() {
         return new Random().nextBoolean();
     }
+    // </editor-fold>
 
-    /**
-     * hàm trả về 1 văn bản có n chữ
-     *
-     * @param n số chữ có trong text
-     *
-     * @return Text
-     */
-    public static String rText(int n) {
-        String text = "";
-        for (int i = 0; i < n; i++) {
-            text += rChuoiChuan(5) + ' ';
-        }
-        return text.trim();
-    }
-
-    /**
-     * trả về Date bất kỳ và ngày này nhỏ hơn hoặc bằng ngày hiện tại ngày nhỏ
-     * nhất là ngày 2005-1-1
-     * 
-     * random 1 ngày theo kiểu java.util.Date
-     * 
-     * @return java.util.Date
-    */
-    public static java.util.Date rDateUtil() {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-        java.util.Date date = null;
-        try {
-            date = format.parse(rDateSQL().toString());
-        } catch (ParseException ex) {
-            Logger.getLogger(RandomData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return date;
-    }
 }
